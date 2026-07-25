@@ -1,0 +1,37 @@
+---
+import { SITE_TITLE, SOCIAL_LINKS } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer>
+	<div class="social">
+		{SOCIAL_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+	</div>
+	<p>&copy; {year} {SITE_TITLE}</p>
+</footer>
+
+<style>
+	footer {
+		border-top: 1px solid rgb(var(--gray-light));
+		padding: 2em 1em;
+		text-align: center;
+		color: rgb(var(--gray));
+		font-size: 0.9em;
+	}
+	.social {
+		display: flex;
+		justify-content: center;
+		gap: 1.25em;
+		margin-bottom: 0.5em;
+	}
+	.social a {
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+	}
+	.social a:hover {
+		color: var(--accent);
+	}
+	footer p {
+		margin: 0;
+	}
+</style>

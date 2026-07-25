@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE } from '../../consts';
+
+const notes = (await getCollection('notes'))
+	.filter((note) => !note.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title={`Notes · ${SITE_TITLE}`} description="Personal writing and things I'm learning.">
+	<h1>Notes</h1>
+	<p>Personal writing and things I'm learning.</p>
+	{
+		notes.length === 0 ? (
+			<p class="empty">Nothing here yet — check back soon.</p>
+		) : (
+			<ul class="posts">
+				{notes.map((note) => (
+					<li>
+						<a href={`/notes/${note.id}`}>{note.data.title}</a>
+						<span class="date">
+							{note.data.pubDate.toLocaleDateString('en-US', {
+								year: 'numeric',
+								month: 'short',
+								day: 'numeric',
+							})}
+						</span>
+					</li>
+				))}
+			</ul>
+		)
+	}
+</BaseLayout>
+
+<style>
+	.empty {
+		color: rgb(var(--gray));
+	}
+	.posts {
+		list-style: none;
+		padding: 0;
+	}
+	.posts li {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1em;
+		margin-bottom: 0.75em;
+	}
+	.posts a {
+		text-decoration: none;
+		font-weight: 700;
+	}
+	.posts a:hover {
+		text-decoration: underline;
+	}
+	.date {
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+		white-space: nowrap;
+	}
+</style>

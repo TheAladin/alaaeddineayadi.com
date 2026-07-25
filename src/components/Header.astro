@@ -1,0 +1,49 @@
+---
+import { SITE_TITLE } from '../consts';
+---
+
+<header>
+	<nav>
+		<a class="site-title" href="/">{SITE_TITLE}</a>
+		{/*
+		  When you're ready to publish Projects / Notes, uncomment this block
+		  to add the tabs to the nav:
+
+		<div class="tabs">
+			<a href="/projects">Projects</a>
+			<a href="/notes">Notes</a>
+		</div>
+		*/}
+	</nav>
+</header>
+
+<style>
+	header {
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	nav {
+		width: 720px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 1em;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.site-title {
+		font-weight: 700;
+		color: rgb(var(--black));
+		text-decoration: none;
+	}
+	.tabs {
+		display: flex;
+		gap: 1.25em;
+	}
+	.tabs a {
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+	}
+	.tabs a:hover {
+		color: var(--accent);
+	}
+</style>

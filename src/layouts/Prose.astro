@@ -1,0 +1,53 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	pubDate?: Date;
+	backHref?: string;
+	backLabel?: string;
+}
+
+const {
+	title,
+	description = '',
+	pubDate,
+	backHref = '/',
+	backLabel = '← Back',
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+	<a href={backHref} class="back">{backLabel}</a>
+	<article class="prose">
+		<h1>{title}</h1>
+		{
+			pubDate && (
+				<p class="date">
+					{pubDate.toLocaleDateString('en-US', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric',
+					})}
+				</p>
+			)
+		}
+		<slot />
+	</article>
+</BaseLayout>
+
+<style>
+	.back {
+		display: inline-block;
+		margin-bottom: 2em;
+		text-decoration: none;
+	}
+	.back:hover {
+		text-decoration: underline;
+	}
+	.date {
+		color: rgb(var(--gray));
+		margin-top: -0.5em;
+	}
+</style>

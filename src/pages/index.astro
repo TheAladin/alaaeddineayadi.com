@@ -1,64 +1,70 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
 
 // ─── Fill these in ────────────────────────────────────────────────
 const name = 'Alaa Eddine Ayadi';
 const tagline = 'Software Engineer'; // your role / one-line pitch
 
-// A short intro. One or two sentences is plenty.
-const intro =
-	'I build software. This is a placeholder — replace it with a couple of sentences about what you do and what you are looking for.';
+// Your photo. Drop an image into the `public/` folder and point to it here,
+// e.g. '/profile.jpg'. A placeholder is provided at public/profile.svg.
+const photo = '/profile.svg';
 
-// Links shown at the bottom. Delete any you do not want; add your own.
-const links = [
-	{ label: 'Email', href: 'mailto:ayadi.alaa.e@gmail.com' },
-	{ label: 'GitHub', href: 'https://github.com/TheAladin' },
-	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/alaa-eddine-ayadi-7bb416227' },
-	// { label: 'Résumé', href: '/resume.pdf' },
-];
+// A short bio. Each string is its own paragraph — add or remove as you like.
+const bio = [
+	"Hi, I'm Alaa.",];
+// Contact / social links live in src/consts.ts (SOCIAL_LINKS).
 // ──────────────────────────────────────────────────────────────────
 ---
-
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<main>
+	
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<section class="hero">
+		<img class="avatar" src={photo} alt={name} width="140" height="140" />
+		<div>
 			<h1>{name}</h1>
 			<p class="tagline">{tagline}</p>
-			<p>{intro}</p>
-			<ul class="links">
-				{
-					links.map((link) => (
-						<li>
-							<a href={link.href}>{link.label}</a>
-						</li>
-					))
-				}
-			</ul>
-		</main>
-	</body>
-</html>
+		</div>
+	</section>
+
+	{bio.map((paragraph) => <p>{paragraph}</p>)}
+
+	<ul class="links">
+		{
+			SOCIAL_LINKS.map((link) => (
+				<li>
+					<a href={link.href}>{link.label}</a>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>
 
 <style>
-	main {
-		min-height: 100vh;
+	.hero {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		align-items: center;
+		gap: 1.5em;
+		margin-bottom: 1.5em;
+	}
+	.avatar {
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+	}
+	.hero h1 {
+		margin-bottom: 0.1em;
 	}
 	.tagline {
 		color: rgb(var(--gray));
 		font-size: 1.25em;
-		margin-top: -0.25em;
+		margin: 0;
 	}
 	.links {
 		list-style: none;
 		padding: 0;
-		margin: 1.5em 0 0;
+		margin: 2em 0 0;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1.25em;
@@ -69,5 +75,11 @@ const links = [
 	}
 	.links a:hover {
 		text-decoration: underline;
+	}
+	@media (max-width: 600px) {
+		.hero {
+			flex-direction: column;
+			align-items: flex-start;
+		}
 	}
 </style>
