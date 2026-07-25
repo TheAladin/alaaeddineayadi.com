@@ -1,5 +1,3 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
-
-export const SITE_TITLE = 'Astro Blog';
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+// Site-wide values used for the browser tab title and meta/SEO tags.
+export const SITE_TITLE = 'Alaa Eddine Ayadi';
+export const SITE_DESCRIPTION = 'Personal website of Alaa Eddine Ayadi.';
