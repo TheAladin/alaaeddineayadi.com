@@ -1,37 +1,33 @@
 ---
 import { SITE_TITLE, SOCIAL_LINKS } from '../consts';
-const year = new Date().getFullYear();
+
+const today = new Date();
 ---
 
 <footer>
-	<div class="social">
+	&copy; {today.getFullYear()} {SITE_TITLE}
+	<div class="social-links">
 		{SOCIAL_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
 	</div>
-	<p>&copy; {year} {SITE_TITLE}</p>
 </footer>
-
 <style>
 	footer {
-		border-top: 1px solid rgb(var(--gray-light));
-		padding: 2em 1em;
-		text-align: center;
+		padding: 2em 1em 6em 1em;
+		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
-		font-size: 0.9em;
+		text-align: center;
 	}
-	.social {
+	.social-links {
 		display: flex;
 		justify-content: center;
-		gap: 1.25em;
-		margin-bottom: 0.5em;
+		gap: 1em;
+		margin-top: 1em;
 	}
-	.social a {
-		color: rgb(var(--gray-dark));
+	.social-links a {
 		text-decoration: none;
+		color: rgb(var(--gray));
 	}
-	.social a:hover {
-		color: var(--accent);
-	}
-	footer p {
-		margin: 0;
+	.social-links a:hover {
+		color: rgb(var(--gray-dark));
 	}
 </style>

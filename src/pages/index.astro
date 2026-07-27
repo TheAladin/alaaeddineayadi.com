@@ -1,43 +1,56 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS } from '../consts';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SECTIONS, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 
-// ─── Fill these in ────────────────────────────────────────────────
 const name = 'Alaa Eddine Ayadi';
-const tagline = 'Software Engineer'; // your role / one-line pitch
-
-// Your photo. Drop an image into the `public/` folder and point to it here,
-// e.g. '/profile.jpg'. A placeholder is provided at public/profile.svg.
+const tagline = '';
 const photo = '/profile.jpg';
 
-// A short bio. Each string is its own paragraph — add or remove as you like.
-const bio = [
-	"Hi, I'm Alaa.",];
-// Contact / social links live in src/consts.ts (SOCIAL_LINKS).
-// ──────────────────────────────────────────────────────────────────
+// Each string is its own paragraph. The section blurbs below live in consts.ts.
+const bio = ['Hi, I am Alaa Eddine, I write here about stuff that piques my curiosity.'];
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-	<section class="hero">
-		<img class="avatar" src={photo} alt={name} width="140" height="140" />
-		<div>
-			<h1>{name}</h1>
-			<p class="tagline">{tagline}</p>
-		</div>
-	</section>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<img class="avatar" src={photo} alt={name} width="140" height="140" />
+				<div>
+					<h1>{name}</h1>
+					<p class="tagline">{tagline}</p>
+				</div>
+			</section>
 
-	{bio.map((paragraph) => <p>{paragraph}</p>)}
+			{bio.map((paragraph) => <p>{paragraph}</p>)}
 
-	<ul class="links">
-		{
-			SOCIAL_LINKS.map((link) => (
-				<li>
-					<a href={link.href}>{link.label}</a>
-				</li>
-			))
-		}
-	</ul>
-</BaseLayout>
+			{
+				SECTIONS.map((section) => (
+					<p>
+						<a href={`/${section.slug}`}>{section.label}</a>: {section.blurb}
+					</p>
+				))
+			}
+
+			<ul class="links">
+				{
+					SOCIAL_LINKS.map((link) => (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
 
 <style>
 	.hero {

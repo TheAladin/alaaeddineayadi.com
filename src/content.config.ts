@@ -1,26 +1,20 @@
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { defineCollection, z } from 'astro:content';
+import { z } from 'astro/zod';
 
-// Shared shape for a written entry (a note or a project write-up).
-const entrySchema = z.object({
-	title: z.string(),
-	description: z.string().optional(),
-	pubDate: z.coerce.date(),
-	draft: z.boolean().optional(),
+const blog = defineCollection({
+	// Load Markdown and MDX files in the `src/content/blog/` directory.
+	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+	// Type-check frontmatter using a schema
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			// Transform string to Date object
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: z.optional(image()),
+		}),
 });
 
-// Personal writing & learning. Each .md file in src/content/notes/ becomes
-// a page at /notes/<filename>.
-const notes = defineCollection({
-	loader: glob({ base: './src/content/notes', pattern: '**/*.md' }),
-	schema: entrySchema,
-});
-
-// Project write-ups. Each .md file in src/content/projects/ becomes a page
-// at /projects/<filename>.
-const projects = defineCollection({
-	loader: glob({ base: './src/content/projects', pattern: '**/*.md' }),
-	schema: entrySchema,
-});
-
-export const collections = { notes, projects };
+export const collections = { blog };
