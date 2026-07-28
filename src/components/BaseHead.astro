@@ -2,7 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, GOATCOUNTER_CODE } from '../consts';
 import { Font } from 'astro:assets';
 
 interface Props {
@@ -48,3 +48,15 @@ const { title, description, image = '/profile.jpg' } = Astro.props;
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
+
+<!-- Analytics. Cookieless, and count.js skips localhost on its own. -->
+{
+	GOATCOUNTER_CODE && (
+		<script
+			is:inline
+			async
+			data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`}
+			src="https://gc.zgo.at/count.js"
+		/>
+	)
+}

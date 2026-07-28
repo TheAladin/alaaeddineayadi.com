@@ -2,6 +2,10 @@
 export const SITE_TITLE = 'Alaa Eddine Ayadi';
 export const SITE_DESCRIPTION = 'Personal website of Alaa Eddine Ayadi.';
 
+// GoatCounter site code, i.e. the CODE in https://CODE.goatcounter.com.
+// Empty string disables the counter.
+export const GOATCOUNTER_CODE = 'thealadin';
+
 // The nav bar, the homepage blurbs and the section pages all read from this.
 // `slug` is both the URL and the folder name under src/content/blog/.
 export const SECTIONS = [
