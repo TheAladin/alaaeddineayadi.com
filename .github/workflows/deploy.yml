@@ -10,12 +10,23 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: withastro/action@v5
+      # no build step, just copy the site files
+      - name: Collect site files
+        run: |
+          mkdir _site
+          cp -r index.html CNAME favicon.svg favicon.ico css js images _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
 
   deploy:
     needs: build
